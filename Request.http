@@ -1,0 +1,20 @@
+### Create duelist
+POST http://localhost:3001/duelist HTTP/1.1
+content-type: application/json
+
+{
+  "name": "John Doe",
+  "birthDate": "1990-05-15T00:00:00Z",
+  "address": {
+    "street": "1234 Main Street",
+    "city": "Anytown",
+    "state": "CA",
+    "postalCode": "12345",
+    "complement": "Apt 101"
+  },
+  "contact": {
+    "email": "duelist@example.com",
+    "phone": "555-123-4567"
+  },
+  "presentation": "Experienced duelist with a passion for strategic gameplay!"
+}
