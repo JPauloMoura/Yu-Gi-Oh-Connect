@@ -26,9 +26,9 @@ func (c CreateDuelistDTO) Validate() error {
 		validation.Field(&c.Name, validation.Required, validation.RuneLength(0, 50)),
 		validation.Field(&c.Presentation, validation.RuneLength(0, 200)),
 		validation.Field(&c.BirthDate, validation.Required, validation.By(isDateBeforeNow)),
-		validation.Field(&c.Cep, validation.Required, validation.RuneLength(0, 50)), // criar validação
+		validation.Field(&c.Cep, validation.Required, validation.RuneLength(8, 8)),
 		validation.Field(&c.Email, validation.Required, is.Email, validation.RuneLength(0, 50)),
-		validation.Field(&c.Phone, validation.Required, validation.RuneLength(0, 50)), // criar validação
+		validation.Field(&c.Phone, validation.Required, validation.RuneLength(10, 11)),
 	)
 }
 
