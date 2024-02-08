@@ -67,9 +67,8 @@ func isDateBeforeNow(date any) error {
 		return errors.ErrorInvalidDateFormat
 	}
 
-	if !d.Before(time.Now()) {
+	if d.After(time.Now().Add(-time.Hour*24)) || d.Equal(time.Now()) {
 		return errors.ErrorDateMustBeLessThanTheCurrentDate
 	}
-
 	return nil
 }

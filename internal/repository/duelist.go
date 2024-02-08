@@ -9,7 +9,7 @@ import (
 )
 
 type DuelistRepository interface {
-	CreateDuelist(user entities.Duelist) (*entities.Duelist, error)
+	CreateDuelist(duelist entities.Duelist) (*entities.Duelist, error)
 }
 
 func NewDuelistRepository(db *sql.DB) DuelistRepository {
