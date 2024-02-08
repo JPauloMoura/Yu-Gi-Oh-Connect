@@ -8,6 +8,7 @@ import (
 	"github.com/JPauloMoura/Yu-Gi-Oh-Connect/infrastructure/database"
 	"github.com/JPauloMoura/Yu-Gi-Oh-Connect/internal/handlers"
 	"github.com/JPauloMoura/Yu-Gi-Oh-Connect/internal/repository"
+	"github.com/JPauloMoura/Yu-Gi-Oh-Connect/internal/services/cep"
 	"github.com/JPauloMoura/Yu-Gi-Oh-Connect/internal/services/duelist"
 	"github.com/JPauloMoura/Yu-Gi-Oh-Connect/pkg/configs"
 	"github.com/JPauloMoura/Yu-Gi-Oh-Connect/pkg/loggers"
@@ -39,8 +40,9 @@ func buildHandlers(cfg *configs.Config) *chi.Mux {
 	db := database.ConnectDb(cfg)
 	duelistRepository := repository.NewDuelistRepository(db)
 	duelistService := duelist.NewDuelistService(duelistRepository)
+	cepServive := cep.NewCepServive(http.DefaultClient)
 
-	handler := handlers.NewHandlerDuelist(duelistService)
+	handler := handlers.NewHandlerDuelist(duelistService, cepServive)
 	router.Post("/duelist", handler.CreateDuelist)
 	return router
 }
