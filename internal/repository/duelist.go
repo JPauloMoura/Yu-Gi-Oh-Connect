@@ -22,7 +22,7 @@ type repository struct {
 
 func (r repository) CreateDuelist(duelist entities.Duelist) (*entities.Duelist, error) {
 	queryInsert, err := r.db.Prepare(`
-		INSERT INTO duelists (id, name, birthDate, street, city, state, postalCode, complement, email, phone, presentation) 
+		INSERT INTO duelists (id, name, presentation, birthDate, state, city, street, district, cep, email, phone) 
 		VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
 	`)
 
@@ -34,15 +34,15 @@ func (r repository) CreateDuelist(duelist entities.Duelist) (*entities.Duelist, 
 	_, err = queryInsert.Exec(
 		duelist.Id,
 		duelist.Name,
+		duelist.Presentation,
 		duelist.BirthDate,
-		duelist.Address.Street,
-		duelist.Address.City,
 		duelist.Address.State,
-		duelist.Address.PostalCode,
-		duelist.Address.Complement,
+		duelist.Address.City,
+		duelist.Address.Street,
+		duelist.Address.District,
+		duelist.Address.Cep,
 		duelist.Contact.Email,
 		duelist.Contact.Phone,
-		duelist.Presentation,
 	)
 
 	if err != nil {
