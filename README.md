@@ -7,9 +7,9 @@ A API Yu-Gi-Oh! Connect permite criar, atualizar, listar, recuperar e excluir in
 Duelistas são como são chamados os jogadores de Yu-Gi-oh TCG. E para ajudar a conectar esses jogadores novas batalhas esse projeto foi criado!
 
 ### Setup
-1. Intale o Go instalado na sua máquina
+1. Intale o Go na sua máquina
 2. Instale o Docker e Docker-compose 
-3. Instale o go-migrations para que seja possivel realizara criação automatizado das tabelas:
+3. Instale o go-migrations para que seja possível realizara criação automatizada das tabelas:
 ```bash
 $ brew install golang-migrate
 ```
@@ -21,23 +21,24 @@ Antes de executar a API, certifique-se de ter feito o setup comentado acima.
 Para instalar as dependências e executar a API, execute os seguintes comandos:
 
 ```bash
-# sobe a infaestrutura com docker-compose (o processo segura o seu terminal)
-# obs: o docker deve está sendo executado
+# suba a infaestrutura com docker-compose (o processo segura o seu terminal)
+# obs: o docker deve está sendo rodando
 $ make run
 
 # -> Em um novo terminal:
-# instala os pacotes de dependencias do projeto
+# instale os pacotes de dependencias do projeto
 $ make tidy
 
-# use para criar as tabelas do banco de dados
+# crie as tabelas do banco de dados
 $ make migrations-up
 
-# sobe a aplicação
+# suba a api da aplicação
 $ make run-api
 ```
 
 ### Endpoints
-
+Você pode instalar a extersão `REST Client`` no VScode fazer as requisições direto
+do arquivo `Request.http` que está da raiz do projeto ;)
 #### Criar Duelista
 
 ```http
