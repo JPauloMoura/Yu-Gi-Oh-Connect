@@ -15,6 +15,14 @@ var (
 	ErrorInvalidRequest                   = errors.New("invalid request")
 	ErrorInvalidResponseBody              = errors.New("invalid response body")
 	ErrorInvalidDateFormat                = errors.New("invalid date format, expected dd/mm/yyyy")
+	ErrorUnableToListDuelists             = errors.New("unable to list duelists")
+	ErrorUnableToFindDuelists             = errors.New("unable to find duelists")
+	ErrorUnableToScanDuelist              = errors.New("unable to scan duelist")
+	ErrorDuelistNotFound                  = errors.New("duelist not found")
+	ErrorUnableToDeleteDuelist            = errors.New("unable to delete duelist")
+	ErrorQueryToDeleteDuelistIsInvalid    = errors.New("query to delete duelist is invalid")
+	ErrorQueryToUpdateDuelistIsInvalid    = errors.New("query to update duelist is invalid")
+	ErrorUnableToUpdateDuelist            = errors.New("unable to update duelist")
 )
 
 func Join(err error, join error) error {
