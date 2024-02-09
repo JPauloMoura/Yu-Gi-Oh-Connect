@@ -10,6 +10,7 @@ import (
 	_ "github.com/lib/pq"
 )
 
+// ConnectDb creates a new database connection
 func ConnectDb(cfg *configs.Config) *sql.DB {
 	connectionString := getConnectStr(cfg)
 

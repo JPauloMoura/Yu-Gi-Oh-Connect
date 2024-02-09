@@ -31,7 +31,7 @@ func (r repository) ListDuelist(pagination *Pagination) ([]entities.Duelist, err
 			&d.Contact.Email,
 			&d.Contact.Phone,
 		)
-		if err != nil { // pode da problema
+		if err != nil {
 			slog.Error("failed to scan duelists", slog.Any("error", err))
 			return nil, errors.ErrorUnableToScanDuelist
 		}

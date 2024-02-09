@@ -10,6 +10,7 @@ import (
 	"github.com/go-ozzo/ozzo-validation/is"
 )
 
+// UpdateDuelistDTO represents the data transfer object for update a duelist
 type UpdateDuelistDTO struct {
 	Name         string    `json:"name"`
 	Presentation string    `json:"presentation"`
@@ -21,6 +22,7 @@ type UpdateDuelistDTO struct {
 	Address *cep.AddressDTO `json:"-"`
 }
 
+// Validate performs validation on the UpdateDuelistDTO fields
 func (c UpdateDuelistDTO) Validate() error {
 	return validation.ValidateStruct(&c,
 		validation.Field(&c.Name, validation.RuneLength(0, 50)),
@@ -32,6 +34,7 @@ func (c UpdateDuelistDTO) Validate() error {
 	)
 }
 
+// UnmarshalJSON customizes the unmarshalling behavior for UpdateDuelistDTO
 func (c *UpdateDuelistDTO) UnmarshalJSON(data []byte) error {
 	var wrapper struct {
 		Name         string `json:"name"`
