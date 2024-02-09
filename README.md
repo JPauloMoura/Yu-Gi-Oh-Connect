@@ -1,5 +1,6 @@
 ## API Yu-Gi-Oh! Connect
 ### É hora do duelo!
+![Yu-Gi-Oh-Trading-Card-Games-2237302-wallhere com](https://github.com/JPauloMoura/Yu-Gi-Oh-Connect/assets/62079201/3acd52d7-32f7-4aa8-bafa-ab580fbe6d0e)
 
 ### Visão Geral
 
