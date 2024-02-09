@@ -10,6 +10,12 @@ import (
 )
 
 func (r repository) UpdateDuelist(duelist entities.Duelist) error {
+	_, err := r.FindDuelist(duelist.Id)
+	if err != nil {
+		slog.Error("failed to check if the duelist", slog.Any("error", err), slog.String("id", duelist.Id))
+		return errors.ErrorDuelistNotFound
+	}
+
 	q, fields := generateQueryToUpdateDuelist(duelist)
 	query, err := r.db.Prepare(q)
 
@@ -42,36 +48,35 @@ func generateQueryToUpdateDuelist(duelist entities.Duelist) (string, []interface
 		values = append(values, duelist.Presentation)
 		counter++
 	}
+
+	if duelist.Address.Cep != "" {
+		query += " cep=$" + strconv.Itoa(counter) + ","
+		values = append(values, duelist.Address.Cep)
+		counter++
+
+		query += " state=$" + strconv.Itoa(counter) + ","
+		values = append(values, duelist.Address.State)
+		counter++
+
+		query += " city=$" + strconv.Itoa(counter) + ","
+		values = append(values, duelist.Address.City)
+		counter++
+
+		query += " street=$" + strconv.Itoa(counter) + ","
+		values = append(values, duelist.Address.Street)
+		counter++
+
+		query += " district=$" + strconv.Itoa(counter) + ","
+		values = append(values, duelist.Address.District)
+		counter++
+	}
+
 	if !duelist.BirthDate.IsZero() {
 		query += " birthDate=$" + strconv.Itoa(counter) + ","
 		values = append(values, duelist.BirthDate)
 		counter++
 	}
-	if duelist.Address.State != "" {
-		query += " state=$" + strconv.Itoa(counter) + ","
-		values = append(values, duelist.Address.State)
-		counter++
-	}
-	if duelist.Address.City != "" {
-		query += " city=$" + strconv.Itoa(counter) + ","
-		values = append(values, duelist.Address.City)
-		counter++
-	}
-	if duelist.Address.Street != "" {
-		query += " street=$" + strconv.Itoa(counter) + ","
-		values = append(values, duelist.Address.Street)
-		counter++
-	}
-	if duelist.Address.District != "" {
-		query += " district=$" + strconv.Itoa(counter) + ","
-		values = append(values, duelist.Address.District)
-		counter++
-	}
-	if duelist.Address.Cep != "" {
-		query += " cep=$" + strconv.Itoa(counter) + ","
-		values = append(values, duelist.Address.Cep)
-		counter++
-	}
+
 	if duelist.Contact.Email != "" {
 		query += " email=$" + strconv.Itoa(counter) + ","
 		values = append(values, duelist.Contact.Email)

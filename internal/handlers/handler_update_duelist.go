@@ -2,6 +2,7 @@ package handlers
 
 import (
 	"encoding/json"
+	e "errors"
 	"log/slog"
 	"net/http"
 
@@ -13,7 +14,7 @@ import (
 	"github.com/google/uuid"
 )
 
-func (h HandlerDuelist) UpadateDuelist(w http.ResponseWriter, r *http.Request) {
+func (h HandlerDuelist) UpdateDuelist(w http.ResponseWriter, r *http.Request) {
 	duelistId, err := uuid.Parse(chi.URLParam(r, "id"))
 	if err != nil {
 		slog.Error("failed to parse id", err)
@@ -52,7 +53,14 @@ func (h HandlerDuelist) UpadateDuelist(w http.ResponseWriter, r *http.Request) {
 
 	duelist := createEntityDuelistByUpdateDuelistDTO(requestBody)
 	duelist.Id = duelistId.String()
+
 	err = h.svcDuelist.UpdateDuelist(duelist)
+	if e.Is(err, errors.ErrorDuelistNotFound) {
+		slog.Warn("failed to update duelist", slog.Any("error", err))
+		response.Encode(w, err, http.StatusNotFound)
+		return
+	}
+
 	if err != nil {
 		slog.Error("failed to update duelist", slog.String("error", err.Error()), slog.Any("duelist", duelist))
 		response.Encode(w, err, http.StatusInternalServerError)

@@ -7,6 +7,12 @@ import (
 )
 
 func (r repository) DeleteDuelist(id string) error {
+	_, err := r.FindDuelist(id)
+	if err != nil {
+		slog.Error("failed to check if the duelist", slog.Any("error", err), slog.String("id", id))
+		return errors.ErrorDuelistNotFound
+	}
+
 	query, err := r.db.Prepare(`DELETE FROM duelists WHERE id=$1`)
 	if err != nil {
 		slog.Error("failed to prepare query to delete duelist", slog.Any("error", err))
