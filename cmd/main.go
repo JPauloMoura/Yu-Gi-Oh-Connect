@@ -42,7 +42,13 @@ func buildHandlers(cfg *configs.Config) *chi.Mux {
 	duelistService := duelist.NewDuelistService(duelistRepository)
 	cepServive := cep.NewCepServive(http.DefaultClient)
 
+	// routers
 	handler := handlers.NewHandlerDuelist(duelistService, cepServive)
 	router.Post("/duelist", handler.CreateDuelist)
+	router.Put("/duelist/{id}", handler.UpadateDuelist)
+	router.Get("/duelist", handler.ListDuelist)
+	router.Get("/duelist/{id}", handler.FindDuelist)
+	router.Delete("/duelist/{id}", handler.DeleteDuelist)
+
 	return router
 }

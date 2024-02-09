@@ -5,8 +5,29 @@ content-type: application/json
 {
   "name": "JP",
   "presentation": "Experienced duelist with a passion for strategic gameplay!",
-  "birthDate": "24/06/11998",
+  "birthDate": "24/06/1998",
   "cep":"72007040",
   "email": "duelist@example.com",
-  "phone": "999999999"
+  "phone": "9999999999"
 }
+
+### Update duelist 
+PUT  http://localhost:3001/duelist/ec6c6447-0848-4354-b08c-19ab940edddb HTTP/1.1
+content-type: application/json
+
+{
+  "name": "Batatinha"
+}
+
+### List duelist 
+GET http://localhost:3001/duelist?sort=asc&&field=birthDate&&limit=1&page=1 HTTP/1.1
+Content-Type: application/json
+
+
+### Delete duelist
+DELETE  http://localhost:3001/duelist/0006db5a-d952-4f19-8a94-26a816d1c04e HTTP/1.1
+content-type: application/json
+
+### Get duelist 
+GET http://localhost:3001/duelist/67507952-764f-44ae-b2f6-d44430426291 HTTP/1.1
+content-type: application/json
