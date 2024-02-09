@@ -9,6 +9,7 @@ type DuelistService interface {
 	CreateDuelist(duelist entities.Duelist) (*entities.Duelist, error)
 	FindDuelist(id string) (*entities.Duelist, error)
 	UpdateDuelist(duelist entities.Duelist) error
+	DeleteDuelist(id string) error
 }
 
 func NewDuelistService(repo repository.DuelistRepository) DuelistService {
