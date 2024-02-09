@@ -37,7 +37,7 @@ $ make run-api
 ```
 
 ### Endpoints
-Você pode instalar a extersão `REST Client` no VScode fazer as requisições direto
+Você pode instalar a extersão `REST Client` no VScode para fazer as requisições direto
 do arquivo `Request.http` que está da raiz do projeto ;)
 #### Criar Duelista
 
