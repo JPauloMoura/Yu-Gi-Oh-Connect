@@ -7,6 +7,7 @@ import (
 
 type DuelistService interface {
 	CreateDuelist(duelist entities.Duelist) (*entities.Duelist, error)
+	FindDuelist(id string) (*entities.Duelist, error)
 }
 
 func NewDuelistService(repo repository.DuelistRepository) DuelistService {
