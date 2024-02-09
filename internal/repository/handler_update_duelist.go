@@ -1,7 +1,6 @@
 package repository
 
 import (
-	"fmt"
 	"log/slog"
 	"strconv"
 	"strings"
@@ -12,7 +11,6 @@ import (
 
 func (r repository) UpdateDuelist(duelist entities.Duelist) error {
 	q, fields := generateQueryToUpdateDuelist(duelist)
-	fmt.Println(q)
 	query, err := r.db.Prepare(q)
 
 	if err != nil {
@@ -89,10 +87,6 @@ func generateQueryToUpdateDuelist(duelist entities.Duelist) (string, []interface
 
 	query += " WHERE id=$" + strconv.Itoa(counter)
 	values = append(values, duelist.Id)
-
-	for _, v := range values {
-		fmt.Println(v)
-	}
 
 	return query, values
 }
