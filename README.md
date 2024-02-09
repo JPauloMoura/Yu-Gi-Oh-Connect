@@ -41,51 +41,305 @@ Você pode instalar a extersão `REST Client` no VScode para fazer as requisiç�
 do arquivo `Request.http` que está da raiz do projeto ;)
 #### Criar Duelista
 
-```http
-POST http://localhost:3001/duelist
-Content-Type: application/json
+## Endpoints
 
-{
-  "name": "JP",
-  "presentation": "Duelista experiente com paixão por jogabilidade estratégica!",
-  "birthDate": "24/06/1998",
-  "cep": "72007040",
-  "email": "duelist@example.com",
-  "phone": "9999999999"
-}
-```
+Você pode instalar a extensão `REST Client` no VScode para fazer as requisições diretamente do arquivo `Request.http` que está na raiz do projeto ;)
 
-#### Atualizar Duelista
+## Criar Duelista
 
-```http
-PUT http://localhost:3001/duelist/92530245-b02a-46e5-9cc3-c7710800a5b8
-Content-Type: application/json
+Este endpoint é usado para criar um novo Duelista.
+Utilizamos o cep informado para consultar os dados de endenreço do duelista e salvar.
 
-{
-  "cep": "64290000"
-}
-```
+- **URL**
+  
+  `/duelist`
 
-#### Listar Duelistas
+- **Método**
 
-```http
-GET http://localhost:3001/duelist?sort=asc&field=birthDate&limit=10&page=1
-Content-Type: application/json
-```
+  `POST`
 
-#### Excluir Duelista
+- **Parâmetros do corpo**
+  
+  | Nome          | Tipo   | Descrição                                     |
+  |---------------|--------|-----------------------------------------------|
+  | name          | string | O nome do Duelista                           |
+  | presentation  | string | Uma breve apresentação do Duelista            |
+  | birthDate     | string | A data de nascimento do Duelista (DD/MM/AAAA) |
+  | cep           | string | O CEP do endereço do Duelista                |
+  | email         | string | O email do Duelista                          |
+  | phone         | string | O número de telefone do Duelista             |
 
-```http
-DELETE http://localhost:3001/duelist/ec6c6447-0848-4354-b08c-19ab940edddb
-Content-Type: application/json
-```
+<br/>
+<details>
+<summary><b>Exemplo de Requisição</b></summary>
 
-#### Obter Duelista
+  ```http
+  POST http://localhost:3001/duelist
+  Content-Type: application/json
 
-```http
-GET http://localhost:3001/duelist/ec6c6447-0848-4354-b08c-19ab940edddb
-Content-Type: application/json
-```
+  {
+    "name": "JP",
+    "presentation": "Duelista experiente com paixão por jogabilidade estratégica!",
+    "birthDate": "24/06/1998",
+    "cep": "72007040",
+    "email": "duelist@example.com",
+    "phone": "9999999999"
+  }
+  ```
+</details>
+
+<details>
+<summary><b>Exemplo de Response</b></summary>
+  
+  ```http
+  HTTP/1.1 201 Created
+  Content-Type: application/json
+  Date: Fri, 09 Feb 2024 14:38:40 GMT
+  Content-Length: 410
+  Connection: close
+
+  {
+    "data": {
+      "id": "51ee3bc7-8ecb-467c-833c-da1db0314fc4",
+      "name": "JP",
+      "presentation": "Experienced duelist with a passion for strategic gameplay!",
+      "birthDate": "1998-06-24T00:00:00Z",
+      "address": {
+        "state": "DF",
+        "city": "Brasília",
+        "street": "Rua Rua 8 Chácara 220",
+        "district": "Setor Habitacional Vicente Pires",
+        "cep": "72007040"
+      },
+      "contact": {
+        "email": "duelist@example.com",
+        "phone": "9999999999"
+      }
+    },
+    "error": "",
+    "statusCode": 201
+  }
+  ```
+</details>
+
+## Atualizar Duelista
+
+Este endpoint é usado para atualizar as informações de um Duelista existente.
+
+- **URL**
+  
+  `/duelist/{id}`
+
+- **Método**
+
+  `PUT`
+
+- **Parâmetros do corpo**
+  
+  | Nome          | Tipo   | Descrição                                     |
+  |---------------|--------|-----------------------------------------------|
+  | name          | string | O nome do Duelista                           |
+  | presentation  | string | Uma breve apresentação do Duelista            |
+  | birthDate     | string | A data de nascimento do Duelista (DD/MM/AAAA) |
+  | cep           | string | O CEP do endereço do Duelista                |
+  | email         | string | O email do Duelista                          |
+  | phone         | string | O número de telefone do Duelista             |
+
+</br>
+<details>
+<summary><b>Exemplo de Requisição</b></summary>
+
+  ```http
+  PUT http://localhost:3001/duelist/51ee3bc7-8ecb-467c-833c-da1db0314fc4
+  Content-Type: application/json
+
+  {
+    "cep": "64290000"
+  }
+  ```
+</details>
+
+<details>
+<summary><b>Exemplo de Response</b></summary>
+  
+  ```http
+  HTTP/1.1 201 Created
+  Content-Type: application/json
+  Date: Fri, 09 Feb 2024 14:40:50 GMT
+  Content-Length: 47
+  Connection: close
+
+  {
+    "data": "updated",
+    "error": "",
+    "statusCode": 201
+  }
+  ```
+</details>
+
+## Listar Duelistas
+
+Este endpoint é usado para listar todos os Duelistas.
+Nele tamnbém está implementado a páginação e ordenação dos resultados.
+
+- **URL**
+  
+  `/duelist`
+
+- **Método**
+
+  `GET`
+
+- **Parâmetros da consulta**
+  
+  | Nome    | Tipo   | Descrição                                                                |
+  |---------|--------|--------------------------------------------------------------------------|
+  | sort    | string | A ordem de classificação dos Duelistas (asc ou desc)                     |
+  | field   | string | O campo pelo qual os Duelistas devem ser classificados (name, birthDate) |
+  | limit   | int    | O número máximo de Duelistas a serem retornados                          |
+  | page    | int    | O número da página de resultados                                         |
+
+</br>
+<details>
+<summary><b>Exemplo de Requisição</b></summary>
+
+  ```http
+  GET http://localhost:3001/duelist?sort=asc&field=birthDate&limit=10&page=1
+  Content-Type: application/json
+  ```
+</details>
+
+<details>
+<summary><b>Exemplo de Response</b></summary>
+  
+  ```http
+  HTTP/1.1 200 OK
+  Content-Type: application/json
+  Date: Fri, 09 Feb 2024 14:42:44 GMT
+  Content-Length: 354
+  Connection: close
+
+  {
+    "data": [
+      {
+        "id": "51ee3bc7-8ecb-467c-833c-da1db0314fc4",
+        "name": "JP",
+        "presentation": "Experienced duelist with a passion for strategic gameplay!",
+        "birthDate": "1998-06-24T00:00:00Z",
+        "address": {
+          "state": "PI",
+          "city": "Altos",
+          "street": "",
+          "district": "",
+          "cep": "64290000"
+        },
+        "contact": {
+          "email": "duelist@example.com",
+          "phone": "9999999999"
+        }
+      }
+    ],
+    "error": "",
+    "statusCode": 200
+  }
+  ```
+</details>
+
+## Excluir Duelista
+
+Este endpoint é usado para excluir um Duelista existente.
+
+- **URL**
+  
+  `/duelist/{id}`
+
+- **Método**
+
+  `DELETE`
+
+</br>
+<details>
+<summary><b>Exemplo de Requisição</b></summary>
+
+  ```http
+  DELETE http://localhost:3001/duelist/51ee3bc7-8ecb-467c-833c-da1db0314fc4
+  Content-Type: application/json
+  ```
+</details>
+
+<details>
+<summary><b>Exemplo de Response</b></summary>
+  
+  ```http
+  HTTP/1.1 200 OK
+  Content-Type: application/json
+  Date: Fri, 09 Feb 2024 14:45:50 GMT
+  Content-Length: 47
+  Connection: close
+
+  {
+    "data": "deleted",
+    "error": "",
+    "statusCode": 200
+  }
+  ```
+</details>
+
+## Obter Duelista
+
+Este endpoint é usado para obter os detalhes de um Duelista específico.
+
+- **URL**
+  
+  `/duelist/{id}`
+
+- **Método**
+
+  `GET`
+
+</br>
+<details>
+<summary><b>Exemplo de Requisição</b></summary>
+
+  ```http
+  GET http://localhost:3001/duelist/ec6c6447-0848-4354-b08c-19ab940edddb
+  Content-Type: application/json
+  ```
+</details>
+
+<details>
+<summary><b>Exemplo de Response</b></summary>
+  
+  ```http
+  HTTP/1.1 200 OK
+  Content-Type: application/json
+  Date: Fri, 09 Feb 2024 14:44:08 GMT
+  Content-Length: 352
+  Connection: close
+
+  {
+    "data": {
+      "id": "51ee3bc7-8ecb-467c-833c-da1db0314fc4",
+      "name": "JP",
+      "presentation": "Experienced duelist with a passion for strategic gameplay!",
+      "birthDate": "1998-06-24T00:00:00Z",
+      "address": {
+        "state": "PI",
+        "city": "Altos",
+        "street": "",
+        "district": "",
+        "cep": "64290000"
+      },
+      "contact": {
+        "email": "duelist@example.com",
+        "phone": "9999999999"
+      }
+    },
+    "error": "",
+    "statusCode": 200
+  }
+  ```
+</details>
 
 ### Tratamento de Erros
 

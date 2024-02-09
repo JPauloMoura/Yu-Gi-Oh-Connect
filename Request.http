@@ -12,7 +12,7 @@ content-type: application/json
 }
 
 ### Update duelist  
-PUT  http://localhost:3001/duelist/92530245-b02a-46e5-9cc3-c7710800a5b8 HTTP/1.1
+PUT  http://localhost:3001/duelist/51ee3bc7-8ecb-467c-833c-da1db0314fc4 HTTP/1.1
 content-type: application/json
 
 {
@@ -25,9 +25,9 @@ Content-Type: application/json
 
 
 ### Delete duelist
-DELETE  http://localhost:3001/duelist/ec6c6447-0848-4354-b08c-19ab940edddb HTTP/1.1
+DELETE  http://localhost:3001/duelist/51ee3bc7-8ecb-467c-833c-da1db0314fc4 HTTP/1.1
 content-type: application/json
 
 ### Get duelist 
-GET http://localhost:3001/duelist/ec6c6447-0848-4354-b08c-19ab940edddb HTTP/1.1
+GET http://localhost:3001/duelist/51ee3bc7-8ecb-467c-833c-da1db0314fc4 HTTP/1.1
 content-type: application/json
