@@ -7,6 +7,7 @@ import (
 
 type DuelistService interface {
 	CreateDuelist(duelist entities.Duelist) (*entities.Duelist, error)
+	ListDuelist(pagination *repository.Pagination) ([]entities.Duelist, error)
 	FindDuelist(id string) (*entities.Duelist, error)
 	UpdateDuelist(duelist entities.Duelist) error
 	DeleteDuelist(id string) error
