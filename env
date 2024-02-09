@@ -1,0 +1,20 @@
+# Esses são dados fake que podem ser alterados dependendp do ambiente
+
+# postgres database
+DB_USER=test@localhost.com
+DB_PASSWORD=password
+DB_HOST=localhost
+DB_NAME=yugioh_connect_db
+DB_SSLMODE=disable
+DB_CONNECTION_STRING="postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:5432/${DB_NAME}?sslmode=${DB_SSLMODE}"
+
+#pgadmin
+PGADMIN_EMAIL=DB_USER
+PGADMIM_PASSWORD=DB_PASSWORD
+
+# api
+SERVER_PORT=3001
+LOG_TYPE=json
+
+# docker compose
+NETWORK_NAME=network-yugioh-connect

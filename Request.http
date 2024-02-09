@@ -11,23 +11,23 @@ content-type: application/json
   "phone": "9999999999"
 }
 
-### Update duelist 
-PUT  http://localhost:3001/duelist/ec6c6447-0848-4354-b08c-19ab940edddb HTTP/1.1
+### Update duelist  
+PUT  http://localhost:3001/duelist/92530245-b02a-46e5-9cc3-c7710800a5b8 HTTP/1.1
 content-type: application/json
 
 {
-  "name": "Batatinha"
+  "cep": "64290000"
 }
 
 ### List duelist 
-GET http://localhost:3001/duelist?sort=asc&&field=birthDate&&limit=1&page=1 HTTP/1.1
+GET http://localhost:3001/duelist?sort=asc&&field=birthDate&&limit=10&page=1 HTTP/1.1
 Content-Type: application/json
 
 
 ### Delete duelist
-DELETE  http://localhost:3001/duelist/0006db5a-d952-4f19-8a94-26a816d1c04e HTTP/1.1
+DELETE  http://localhost:3001/duelist/ec6c6447-0848-4354-b08c-19ab940edddb HTTP/1.1
 content-type: application/json
 
 ### Get duelist 
-GET http://localhost:3001/duelist/67507952-764f-44ae-b2f6-d44430426291 HTTP/1.1
+GET http://localhost:3001/duelist/ec6c6447-0848-4354-b08c-19ab940edddb HTTP/1.1
 content-type: application/json

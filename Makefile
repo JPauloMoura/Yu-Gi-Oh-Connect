@@ -1,4 +1,4 @@
-include .env
+include env
 
 # Run tests
 test:
@@ -35,3 +35,6 @@ migrations-up:
 # Rollback migrations
 migrations-down:
 	@migrate -path infrastructure/database/migrations -database $(DB_CONNECTION_STRING) -verbose down
+
+tidy:
+	@go mod tidy
