@@ -19,36 +19,49 @@ import (
 
 func main() {
 	if err := godotenv.Load(); err != nil {
-		log.Panic("failed to loading .env file")
+		log.Panic("Failed to load the .env file")
 	}
 
 	cfg := configs.BuildConfig()
 	loggers.ConfigLogger(cfg)
 
-	handlers := buildHandlers(cfg)
+	router := setupHandlers(cfg)
 
-	slog.Info("server is running in port " + cfg.ServerPort())
-	http.ListenAndServe(":"+cfg.ServerPort(), handlers)
+	startServer(cfg, router)
 }
 
-func buildHandlers(cfg *configs.Config) *chi.Mux {
+// setupHandlers configures the handlers for the application
+func setupHandlers(cfg *configs.Config) http.Handler {
 	router := chi.NewRouter()
+
+	// middlewares
 	router.Use(middleware.Logger)
 	router.Use(middleware.Recoverer)
-	router.Use(middleware.RequestID)
 
+	// dependencies
 	db := database.ConnectDb(cfg)
 	duelistRepository := repository.NewDuelistRepository(db)
 	duelistService := duelist.NewDuelistService(duelistRepository)
-	cepServive := cep.NewCepServive(http.DefaultClient)
+	cepService := cep.NewCepServive(http.DefaultClient)
+	duelistHandler := handlers.NewHandlerDuelist(duelistService, cepService)
 
-	// routers
-	handler := handlers.NewHandlerDuelist(duelistService, cepServive)
-	router.Post("/duelist", handler.CreateDuelist)
-	router.Put("/duelist/{id}", handler.UpadateDuelist)
-	router.Get("/duelist", handler.ListDuelist)
-	router.Get("/duelist/{id}", handler.FindDuelist)
-	router.Delete("/duelist/{id}", handler.DeleteDuelist)
+	// routes
+	router.Post("/duelist", duelistHandler.CreateDuelist)
+	router.Put("/duelist/{id}", duelistHandler.UpdateDuelist)
+	router.Get("/duelist", duelistHandler.ListDuelist)
+	router.Get("/duelist/{id}", duelistHandler.FindDuelist)
+	router.Delete("/duelist/{id}", duelistHandler.DeleteDuelist)
 
 	return router
+}
+
+// startServer starts the HTTP server
+func startServer(cfg *configs.Config, router http.Handler) {
+	serverAddr := ":" + cfg.ServerPort()
+	slog.Info("The server is running on port " + cfg.ServerPort())
+
+	err := http.ListenAndServe(serverAddr, router)
+	if err != nil {
+		log.Fatal("Failed to start the server:", err)
+	}
 }
