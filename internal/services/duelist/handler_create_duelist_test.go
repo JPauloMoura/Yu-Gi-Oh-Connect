@@ -5,6 +5,7 @@ import (
 	"testing"
 
 	"github.com/JPauloMoura/Yu-Gi-Oh-Connect/internal/entities"
+	"github.com/JPauloMoura/Yu-Gi-Oh-Connect/internal/repository"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
 )
@@ -16,6 +17,26 @@ type mockDuelistRepository struct {
 func (o *mockDuelistRepository) CreateDuelist(duelist entities.Duelist) (*entities.Duelist, error) {
 	args := o.Called(duelist)
 	return args.Get(0).(*entities.Duelist), args.Error(1)
+}
+
+func (o *mockDuelistRepository) ListDuelist(pagination *repository.Pagination) ([]entities.Duelist, error) {
+	args := o.Called(pagination)
+	return args.Get(0).([]entities.Duelist), args.Error(1)
+}
+
+func (o *mockDuelistRepository) FindDuelist(id string) (*entities.Duelist, error) {
+	args := o.Called(id)
+	return args.Get(0).(*entities.Duelist), args.Error(1)
+}
+
+func (o *mockDuelistRepository) UpdateDuelist(duelist entities.Duelist) error {
+	args := o.Called(duelist)
+	return args.Error(0)
+}
+
+func (o *mockDuelistRepository) DeleteDuelist(id string) error {
+	args := o.Called(id)
+	return args.Error(0)
 }
 
 func Test_duelistService_CreateDuelist(t *testing.T) {

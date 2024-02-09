@@ -1,4 +1,4 @@
-package handlers
+package dto
 
 import (
 	"encoding/json"
@@ -18,7 +18,7 @@ type CreateDuelistDTO struct {
 	Email        string    `json:"email"`
 	Phone        string    `json:"phone"`
 
-	address *cep.AddressDTO
+	Address *cep.AddressDTO `json:"-"`
 }
 
 func (c CreateDuelistDTO) Validate() error {
