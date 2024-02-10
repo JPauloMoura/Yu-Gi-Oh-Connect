@@ -67,7 +67,7 @@ func (h HandlerDuelist) UpdateDuelist(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	response.Encode(w, "updated", http.StatusCreated)
+	response.Encode(w, "updated", http.StatusOK)
 }
 
 func createEntityDuelistByUpdateDuelistDTO(dto dto.UpdateDuelistDTO) entities.Duelist {

@@ -37,11 +37,6 @@ $ make migrations-up
 $ make run-api
 ```
 
-### Endpoints
-Você pode instalar a extersão `REST Client` no VScode para fazer as requisições direto
-do arquivo `Request.http` que está da raiz do projeto ;)
-#### Criar Duelista
-
 ## Endpoints
 
 Você pode instalar a extensão `REST Client` no VScode para fazer as requisições diretamente do arquivo `Request.http` que está na raiz do projeto ;)
@@ -164,7 +159,7 @@ Este endpoint é usado para atualizar as informações de um Duelista existente.
 <summary><b>Exemplo de Response</b></summary>
   
   ```http
-  HTTP/1.1 201 Created
+  HTTP/1.1 200 OK
   Content-Type: application/json
   Date: Fri, 09 Feb 2024 14:40:50 GMT
   Content-Length: 47
