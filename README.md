@@ -168,7 +168,7 @@ Este endpoint é usado para atualizar as informações de um Duelista existente.
   {
     "data": "updated",
     "error": "",
-    "statusCode": 201
+    "statusCode": 200
   }
   ```
 </details>
