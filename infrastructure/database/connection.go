@@ -2,7 +2,6 @@ package database
 
 import (
 	"database/sql"
-	"fmt"
 	"log"
 	"log/slog"
 
@@ -12,7 +11,7 @@ import (
 
 // ConnectDb creates a new database connection
 func ConnectDb(cfg *configs.Config) *sql.DB {
-	connectionString := getConnectStr(cfg)
+	connectionString := cfg.DbConnectionStr()
 
 	connect, err := sql.Open("postgres", connectionString)
 	if err != nil || connect == nil {
@@ -25,8 +24,4 @@ func ConnectDb(cfg *configs.Config) *sql.DB {
 		log.Fatal("down service")
 	}
 	return connect
-}
-
-func getConnectStr(cfg *configs.Config) string {
-	return fmt.Sprintf("user=%s dbname=%s password=%s host=%s sslmode=%s", cfg.DbUser(), cfg.DbName(), cfg.DbPassword(), cfg.DbHost(), cfg.DbSSlMode())
 }
