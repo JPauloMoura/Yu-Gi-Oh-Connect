@@ -12,8 +12,9 @@ import (
 	"github.com/JPauloMoura/Yu-Gi-Oh-Connect/internal/services/duelist"
 	"github.com/JPauloMoura/Yu-Gi-Oh-Connect/pkg/configs"
 	"github.com/JPauloMoura/Yu-Gi-Oh-Connect/pkg/loggers"
+	"github.com/JPauloMoura/Yu-Gi-Oh-Connect/pkg/middleware"
 	"github.com/go-chi/chi/v5"
-	"github.com/go-chi/chi/v5/middleware"
+	chiMiddleware "github.com/go-chi/chi/v5/middleware"
 	"github.com/joho/godotenv"
 )
 
@@ -45,7 +46,16 @@ func setupHandlers(cfg *configs.Config) http.Handler {
 	cepService := cep.NewCepServive(http.DefaultClient)
 	duelistHandler := handlers.NewHandlerDuelist(duelistService, cepService)
 
-	// routes
+	return defineRouters(duelistHandler)
+}
+
+func defineRouters(duelistHandler handlers.HandlerDuelist) *chi.Mux {
+	router := chi.NewRouter()
+
+	// middlewares
+	router.Use(chiMiddleware.Logger)
+	router.Use(chiMiddleware.Recoverer)
+	router.Use(middleware.Cors())
 	router.Post("/duelist", duelistHandler.CreateDuelist)
 	router.Put("/duelist/{id}", duelistHandler.UpdateDuelist)
 	router.Get("/duelist", duelistHandler.ListDuelist)
