@@ -36,8 +36,8 @@ func setupHandlers(cfg *configs.Config) http.Handler {
 	router := chi.NewRouter()
 
 	// middlewares
-	router.Use(middleware.Logger)
-	router.Use(middleware.Recoverer)
+	router.Use(chiMiddleware.Logger)
+	router.Use(chiMiddleware.Recoverer)
 
 	// dependencies
 	db := database.ConnectDb(cfg)
