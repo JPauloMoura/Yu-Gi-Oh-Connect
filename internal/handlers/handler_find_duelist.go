@@ -12,6 +12,14 @@ import (
 	"github.com/google/uuid"
 )
 
+// @Summary FindDuelist
+// @Description Busca as informações de um duelista com base no seu uid.
+// @Tags Duelist
+// @Accept json
+// @Produce json
+// @Param uid path string true "6457d5dc-6a4b-409f-972e-f8bb8f9f9f67"
+// @Success 200 {object} entities.Duelist
+// @Router /duelist/{uid} [GET]
 func (h HandlerDuelist) FindDuelist(w http.ResponseWriter, r *http.Request) {
 	uid, err := uuid.Parse(chi.URLParam(r, "id"))
 	if err != nil {

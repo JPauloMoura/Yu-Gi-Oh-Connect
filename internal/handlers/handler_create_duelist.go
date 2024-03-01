@@ -11,6 +11,14 @@ import (
 	"github.com/JPauloMoura/Yu-Gi-Oh-Connect/pkg/response"
 )
 
+// @Summary CreateDuelist
+// @Description Realiza a criação de um novo perfil de duelista na plataforma. Todos os campos da body são requireds, exceto "presentation". As informações de endereço seram preenchidas automaticamentes com base no Cep informado.
+// @Tags Duelist
+// @Accept json
+// @Produce json
+// @param body body dto.CreateDuelistDTO true "CreateDuelistDTO Object"
+// @Success 201 {object} entities.Duelist
+// @Router /duelist [POST]
 func (h HandlerDuelist) CreateDuelist(w http.ResponseWriter, r *http.Request) {
 	var requestBody dto.CreateDuelistDTO
 

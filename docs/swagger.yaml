@@ -1,0 +1,218 @@
+basePath: /
+definitions:
+  dto.CreateDuelistDTO:
+    properties:
+      birthDate:
+        example: 14/09/1992
+        type: string
+      cep:
+        example: "72007040"
+        type: string
+      email:
+        example: jp@gmail.com
+        type: string
+      name:
+        example: JP
+        type: string
+      phone:
+        example: "61999876543"
+        type: string
+      presentation:
+        example: Jogar com Lair of Darkness
+        type: string
+    type: object
+  dto.UpdateDuelistDTO:
+    properties:
+      birthDate:
+        type: string
+      cep:
+        type: string
+      email:
+        type: string
+      name:
+        type: string
+      phone:
+        type: string
+      presentation:
+        type: string
+    type: object
+  entities.Address:
+    properties:
+      cep:
+        type: string
+      city:
+        type: string
+      district:
+        type: string
+      state:
+        type: string
+      street:
+        type: string
+    type: object
+  entities.Contact:
+    properties:
+      email:
+        type: string
+      phone:
+        type: string
+    type: object
+  entities.Duelist:
+    properties:
+      address:
+        $ref: '#/definitions/entities.Address'
+      birthDate:
+        type: string
+      contact:
+        $ref: '#/definitions/entities.Contact'
+      id:
+        type: string
+      name:
+        type: string
+      presentation:
+        type: string
+    type: object
+  response.Response:
+    properties:
+      data: {}
+      error:
+        type: string
+      statusCode:
+        type: integer
+    type: object
+host: localhost:3001
+info:
+  contact: {}
+  description: A API Yu-Gi-Oh! Connect permite criar, atualizar, listar, recuperar
+    e excluir informações de duelistas. Duelistas são como são chamados os jogadores
+    de Yu-Gi-oh TCG. E para ajudar a conectar esses jogadores novas batalhas esse
+    projeto foi criado!
+  title: Yu-Gi-Oh-Connect
+  version: "1.0"
+paths:
+  /duelist:
+    get:
+      consumes:
+      - application/json
+      description: Realiza a listagem de duelista. Podemos obter a lista de duelistas
+        utilizando paginação e ordenação dos resultados.
+      parameters:
+      - description: 'A ordem de classificação dos Duelistas (asc ou desc) '
+        in: query
+        name: sort
+        type: string
+      - description: O campo pelo qual os Duelistas devem ser classificados (name,
+          birthDate)
+        in: query
+        name: field
+        type: string
+      - description: O número máximo de Duelistas a serem retornados. O padrão é 10.
+        in: query
+        name: limit
+        type: integer
+      - description: O número da página de resultados
+        in: query
+        name: page
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/entities.Duelist'
+            type: array
+      summary: ListDuelist
+      tags:
+      - Duelist
+    post:
+      consumes:
+      - application/json
+      description: Realiza a criação de um novo perfil de duelista na plataforma.
+        Todos os campos da body são requireds, exceto "presentation". As informações
+        de endereço seram preenchidas automaticamentes com base no Cep informado.
+      parameters:
+      - description: CreateDuelistDTO Object
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/dto.CreateDuelistDTO'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/entities.Duelist'
+      summary: CreateDuelist
+      tags:
+      - Duelist
+  /duelist/{uid}:
+    delete:
+      description: Realiza a deleção de um duelista com base no seu uid.
+      parameters:
+      - description: 6457d5dc-6a4b-409f-972e-f8bb8f9f9f67
+        in: path
+        name: uid
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Response'
+      summary: DeleteDuelist
+      tags:
+      - Duelist
+    get:
+      consumes:
+      - application/json
+      description: Busca as informações de um duelista com base no seu uid.
+      parameters:
+      - description: 6457d5dc-6a4b-409f-972e-f8bb8f9f9f67
+        in: path
+        name: uid
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/entities.Duelist'
+      summary: FindDuelist
+      tags:
+      - Duelist
+    put:
+      consumes:
+      - application/json
+      description: Realiza a atualização de um perfil de duelista na plataforma.
+      parameters:
+      - description: 6457d5dc-6a4b-409f-972e-f8bb8f9f9f67
+        in: path
+        name: uid
+        required: true
+        type: string
+      - description: UpdateDuelistDTO object
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/dto.UpdateDuelistDTO'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Response'
+      summary: UpdateDuelist
+      tags:
+      - Duelist
+schemes:
+- http
+swagger: "2.0"

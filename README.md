@@ -176,7 +176,7 @@ Este endpoint é usado para atualizar as informações de um Duelista existente.
 ## Listar Duelistas
 
 Este endpoint é usado para listar todos os Duelistas.
-Nele tamnbém está implementado a páginação e ordenação dos resultados.
+Nele também está implementado a páginação e ordenação dos resultados.
 
 - **URL**
   

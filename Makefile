@@ -7,11 +7,9 @@ test:
 
 # Create Docker network if it doesn't exist
 create-network:
-	if ! docker network inspect $(NETWORK_NAME) >/dev/null 2>&1 ; then \
+	@if ! docker network inspect $(NETWORK_NAME) >/dev/null 2>&1 ; then \
 		echo "creating network $(NETWORK_NAME)..."; \
 		docker network create $(NETWORK_NAME); \
-	else \
-		echo "$(NETWORK_NAME) network already exists."; \
 	fi
 
 # Run infrastructure with Docker Compose
