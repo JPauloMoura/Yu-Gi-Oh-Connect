@@ -5,6 +5,7 @@ import (
 	"log/slog"
 	"net/http"
 
+	_ "github.com/JPauloMoura/Yu-Gi-Oh-Connect/docs"
 	"github.com/JPauloMoura/Yu-Gi-Oh-Connect/infrastructure/database"
 	"github.com/JPauloMoura/Yu-Gi-Oh-Connect/internal/handlers"
 	"github.com/JPauloMoura/Yu-Gi-Oh-Connect/internal/repository"
@@ -16,8 +17,15 @@ import (
 	"github.com/go-chi/chi/v5"
 	chiMiddleware "github.com/go-chi/chi/v5/middleware"
 	"github.com/joho/godotenv"
+	httpSwagger "github.com/swaggo/http-swagger"
 )
 
+// @title Yu-Gi-Oh-ConnectI
+// @version 1.0
+// @description A API Yu-Gi-Oh! Connect permite criar, atualizar, listar, recuperar e excluir informações de duelistas. Duelistas são como são chamados os jogadores de Yu-Gi-oh TCG. E para ajudar a conectar esses jogadores novas batalhas esse projeto foi criado!
+// @host localhost:3001
+// @BasePath /
+// @schemes http
 func main() {
 	if err := godotenv.Load(); err != nil {
 		log.Panic("Failed to load the .env file")
@@ -56,6 +64,9 @@ func defineRouters(duelistHandler handlers.HandlerDuelist) *chi.Mux {
 	router.Use(chiMiddleware.Logger)
 	router.Use(chiMiddleware.Recoverer)
 	router.Use(middleware.Cors())
+
+	router.Get("/docs/*", httpSwagger.WrapHandler)
+
 	router.Post("/duelist", duelistHandler.CreateDuelist)
 	router.Put("/duelist/{id}", duelistHandler.UpdateDuelist)
 	router.Get("/duelist", duelistHandler.ListDuelist)

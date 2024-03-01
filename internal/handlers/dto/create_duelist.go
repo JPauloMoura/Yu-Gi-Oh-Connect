@@ -12,12 +12,12 @@ import (
 
 // CreateDuelistDTO represents the data transfer object for creating a new duelist
 type CreateDuelistDTO struct {
-	Name         string    `json:"name"`
-	Presentation string    `json:"presentation"`
-	BirthDate    time.Time `json:"birthDate"`
-	Cep          string    `json:"cep"`
-	Email        string    `json:"email"`
-	Phone        string    `json:"phone"`
+	Name         string    `json:"name" example:"JP"`
+	Presentation string    `json:"presentation" example:"Jogar com Lair of Darkness"`
+	BirthDate    time.Time `json:"birthDate" example:"14/09/1992"`
+	Cep          string    `json:"cep" example:"72007040"`
+	Email        string    `json:"email" example:"jp@gmail.com"`
+	Phone        string    `json:"phone" example:"61999876543"`
 
 	Address *cep.AddressDTO `json:"-"` // not serialized
 }

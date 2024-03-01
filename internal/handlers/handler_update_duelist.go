@@ -14,6 +14,15 @@ import (
 	"github.com/google/uuid"
 )
 
+// @Summary UpdateDuelist
+// @Description  Realiza a atualização de um perfil de duelista na plataforma.
+// @Tags Duelist
+// @Accept json
+// @Produce json
+// @Param uid path string true "6457d5dc-6a4b-409f-972e-f8bb8f9f9f67"
+// @param body body dto.UpdateDuelistDTO true "UpdateDuelistDTO object"
+// @Success 200 {object} response.Response
+// @Router /duelist/{uid} [PUT]
 func (h HandlerDuelist) UpdateDuelist(w http.ResponseWriter, r *http.Request) {
 	duelistId, err := uuid.Parse(chi.URLParam(r, "id"))
 	if err != nil {
