@@ -86,7 +86,7 @@ info:
     e excluir informações de duelistas. Duelistas são como são chamados os jogadores
     de Yu-Gi-oh TCG. E para ajudar a conectar esses jogadores novas batalhas esse
     projeto foi criado!
-  title: Yu-Gi-Oh-ConnectI
+  title: Yu-Gi-Oh-Connect
   version: "1.0"
 paths:
   /duelist:

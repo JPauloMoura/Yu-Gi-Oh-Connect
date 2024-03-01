@@ -20,7 +20,7 @@ import (
 	httpSwagger "github.com/swaggo/http-swagger"
 )
 
-// @title Yu-Gi-Oh-ConnectI
+// @title Yu-Gi-Oh-Connect
 // @version 1.0
 // @description A API Yu-Gi-Oh! Connect permite criar, atualizar, listar, recuperar e excluir informações de duelistas. Duelistas são como são chamados os jogadores de Yu-Gi-oh TCG. E para ajudar a conectar esses jogadores novas batalhas esse projeto foi criado!
 // @host localhost:3001

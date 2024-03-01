@@ -326,7 +326,7 @@ var SwaggerInfo = &swag.Spec{
 	Host:             "localhost:3001",
 	BasePath:         "/",
 	Schemes:          []string{"http"},
-	Title:            "Yu-Gi-Oh-ConnectI",
+	Title:            "Yu-Gi-Oh-Connect",
 	Description:      "A API Yu-Gi-Oh! Connect permite criar, atualizar, listar, recuperar e excluir informações de duelistas. Duelistas são como são chamados os jogadores de Yu-Gi-oh TCG. E para ajudar a conectar esses jogadores novas batalhas esse projeto foi criado!",
 	InfoInstanceName: "swagger",
 	SwaggerTemplate:  docTemplate,
