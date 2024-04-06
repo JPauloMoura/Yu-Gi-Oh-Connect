@@ -43,6 +43,7 @@ jobs:
     - name: Build Docker image
       run: |
         docker build -t jp0user0docker/yugioh-connection:${{ steps.tag.outputs.tag }} .
+        docker build -t jp0user0docker/yugioh-connection:latest .
 
     - name: Push Docker image to Docker Hub
       run: |
