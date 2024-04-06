@@ -64,7 +64,7 @@ func (c cepService) GetAddress(cep string) (*AddressDTO, error) {
 }
 
 func generateRequest(cep string) (*http.Request, error) {
-	url := fmt.Sprintf("https://brasilaberto.com/api/v1/zipcode/%s", cep)
+	url := fmt.Sprintf("https://api.brasilaberto.com/v1/zipcode/%s", cep)
 
 	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {

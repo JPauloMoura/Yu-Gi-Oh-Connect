@@ -9,6 +9,7 @@ import (
 	"github.com/JPauloMoura/Yu-Gi-Oh-Connect/infrastructure/database"
 	"github.com/JPauloMoura/Yu-Gi-Oh-Connect/internal/handlers"
 	"github.com/JPauloMoura/Yu-Gi-Oh-Connect/internal/repository"
+	"github.com/JPauloMoura/Yu-Gi-Oh-Connect/internal/repository/inmemory"
 	"github.com/JPauloMoura/Yu-Gi-Oh-Connect/internal/services/cep"
 	"github.com/JPauloMoura/Yu-Gi-Oh-Connect/internal/services/duelist"
 	"github.com/JPauloMoura/Yu-Gi-Oh-Connect/pkg/configs"
@@ -48,8 +49,14 @@ func setupHandlers(cfg *configs.Config) http.Handler {
 	router.Use(chiMiddleware.Recoverer)
 
 	// dependencies
-	db := database.ConnectDb(cfg)
-	duelistRepository := repository.NewDuelistRepository(db)
+	var duelistRepository repository.DuelistRepository
+	if cfg.DbInmemory() {
+		duelistRepository = inmemory.NewDuelistRepository()
+	} else {
+		db := database.ConnectDb(cfg)
+		duelistRepository = repository.NewDuelistRepository(db)
+	}
+
 	duelistService := duelist.NewDuelistService(duelistRepository)
 	cepService := cep.NewCepServive(http.DefaultClient)
 	duelistHandler := handlers.NewHandlerDuelist(duelistService, cepService)
