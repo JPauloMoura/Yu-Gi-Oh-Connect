@@ -4,13 +4,19 @@ import (
 	"log"
 	"os"
 	"strconv"
+
+	"github.com/joho/godotenv"
 )
 
 // BuildConfig imports the necessary environment variables and makes them available in a config structure
 func BuildConfig() *Config {
+	if err := godotenv.Load(); err != nil {
+		log.Println("[Warning]: failed to loading .env file")
+	}
+
 	inmemory, err := strconv.ParseBool(os.Getenv("DB_INMEMORY"))
 	if err != nil {
-		log.Fatal("DB_INMEMORY is no bool")
+		log.Fatal("DB_INMEMORY is no bool: ", os.Getenv("DB_INMEMORY"))
 	}
 
 	cfg := &Config{
@@ -43,6 +49,11 @@ func (c *Config) validate() {
 	if c.serverPort == "" {
 		log.Fatal("SERVER_PORT is required")
 	}
+
+	if c.dbInmemory {
+		return
+	}
+
 	if c.dbConnectionStr == "" {
 		log.Fatal("DB_CONNECTION_STRING is required")
 	}

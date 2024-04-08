@@ -17,7 +17,6 @@ import (
 	"github.com/JPauloMoura/Yu-Gi-Oh-Connect/pkg/middleware"
 	"github.com/go-chi/chi/v5"
 	chiMiddleware "github.com/go-chi/chi/v5/middleware"
-	"github.com/joho/godotenv"
 	httpSwagger "github.com/swaggo/http-swagger"
 )
 
@@ -28,9 +27,6 @@ import (
 // @BasePath /
 // @schemes http
 func main() {
-	if err := godotenv.Load(); err != nil {
-		log.Panic("Failed to load the .env file")
-	}
 
 	cfg := configs.BuildConfig()
 	loggers.ConfigLogger(cfg)
